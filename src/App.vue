@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import PageLogin from './components/PageLogin.vue'
+import PageLogin from './components/AuthPages/PageLogin.vue'
 
 export default {
   data() {

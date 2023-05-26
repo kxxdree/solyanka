@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import PageSignUp from '../components/PageSignUp'
-import PageLogin from '../components/PageLogin'
+import PageSignUp from '../components/AuthPages/PageSignUp'
+import PageLogin from '../components/AuthPages/PageLogin'
 
 
 Vue.use(VueRouter)
