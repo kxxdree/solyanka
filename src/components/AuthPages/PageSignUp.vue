@@ -9,7 +9,7 @@
             <div class="login_container_form">
                 <LoginForm>
                     <label for="repeated_password" class="login_container_form_login_label">Повторите пароль</label>
-                    <input type="text" id="repeated_password" class="login_container_form_login_input">
+                    <input type="text" id="repeated_password" class="login_container_form_login_input" required>
                 </LoginForm>
             </div>
         </div>

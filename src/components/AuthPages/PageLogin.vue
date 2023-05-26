@@ -39,4 +39,8 @@ export default {
     flex-direction: column;
 
 }
+
+.login_container_title_text {
+    
+}
 </style>

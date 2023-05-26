@@ -2,7 +2,7 @@
     <div>
         <header class="header">
             <img src="../assets/images/headerLogo.svg" alt="Solyanka Chat" class="header_img">
-            <div class="header_btns">
+            <div class="header_btns" v-show="this.$route.name !== 'homepage'">
                 <button class="header_btns_button"></button>
                 <button class="header_btns_button" style="background-color: black"></button>
             </div>

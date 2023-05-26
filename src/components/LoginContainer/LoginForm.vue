@@ -1,20 +1,33 @@
-<template lang="">
+<template>
     <div>
-        <form class="login_container_form_login">
-            <p class="login_container_title_text" style="font-weight: 500; text-align: center; margin: 2.5rem 1rem 0; font-size: 2rem">Вход в Солянка Chat</p>
+        <form class="login_container_form_login" action="#" @submit.prevent="submit">
+            <p class="login_container_title_text"
+                style="font-weight: 500; text-align: center; margin: 2.5rem 1rem 0; font-size: 2rem"
+                v-if="this.$route.name == 'login'">Вход в Солянка Chat</p>
+            <p v-else class="login_container_title_text"
+                style="font-weight: 500; text-align: center; margin: 2.5rem 1rem 0; font-size: 2rem">Регистрация</p>
             <label for="email" class="login_container_form_login_label">Адрес эл. почты</label>
-            <input type="text" id="email" class="login_container_form_login_input">
+            <input type="text" id="email" class="login_container_form_login_input" required>
             <label for="password" class="login_container_form_login_label">Пароль</label>
-            <input type="text" id="password" class="login_container_form_login_input">
+            <input type="text" id="password" class="login_container_form_login_input" required>
             <slot></slot>
-            <LoginButton />
+            <LoginButton v-if="this.$route.name == 'login'" type="submit" />
+            <SignupButton v-else type="submit" />
         </form>
-        <form class="login_container_form_signup">
-            <p class="login_container_title_text" style="font-weight: 500; text-align: center; margin: 2.5rem 1rem 0; font-size: 2rem">Нет профиля в Солянка Chat?</p>
-            <router-link to="/signup">
+        <div class="login_container_form_signup">
+            <p v-if="this.$route.name == 'login'" class="login_container_title_text"
+                style="font-weight: 500; text-align: center; margin: 2.5rem 1rem 0; font-size: 2rem">Нет профиля в Солянка
+                Chat?</p>
+            <p v-else class="login_container_title_text"
+                style="font-weight: 500; text-align: center; margin: 2.5rem 1rem 0; font-size: 2rem">Есть профиль в Солянка
+                Chat?</p>
+            <router-link to="/signup" v-if="this.$route.name == 'login'">
                 <SignupButton />
             </router-link>
-        </form>
+            <router-link to="/login" v-else>
+                <LoginButton />
+            </router-link>
+        </div>
     </div>
 </template>
 <script>
@@ -24,12 +37,16 @@ import SignupButton from '../Buttons/SignupButton.vue';
 export default {
     data() {
         return {
-
         }
     },
     components: {
         LoginButton,
         SignupButton
+    },
+    methods: {
+        submit() {
+
+        }
     }
 }
 </script>
@@ -57,6 +74,7 @@ export default {
         outline: none;
         font-size: 1.5rem;
         padding: 1rem;
+        color: #3C1900
     }
 }
 

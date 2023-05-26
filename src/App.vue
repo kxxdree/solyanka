@@ -1,18 +1,20 @@
 <template>
   <div id="app">
-    <!-- <page-login /> -->
+    <HomePage />
     <router-view></router-view>
   </div>
 </template>
 
 <script>
 import PageLogin from './components/AuthPages/PageLogin.vue'
+import HomePage from './components/HomePage/HomePage.vue'
 
 export default {
   data() {
     return {
       components: {
-        PageLogin
+        PageLogin,
+        HomePage
       }
     }
   }
