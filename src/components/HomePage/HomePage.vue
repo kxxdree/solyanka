@@ -4,6 +4,9 @@
         <div class="wrapper">
             <div class="leftside-bar">
                 <button class="leftside-bar_btn">+ Создать чат</button>
+                <div class="chat-list">
+                    <p class="chat-list_item">Чат бредятины</p>
+                </div>
             </div>
         </div>
     </div>
@@ -43,6 +46,15 @@ export default {
         &:hover {
             opacity: 0.7;
         }
+    }
+}
+.chat-list { 
+    display: flex;
+    flex-direction: column;
+
+    &_item {
+        margin: 2rem auto;
+        font-size: 1.5rem;
     }
 }
 </style>
