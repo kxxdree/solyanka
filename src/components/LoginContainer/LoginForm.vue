@@ -78,6 +78,13 @@ export default {
     }
 }
 
+// .login_container_title_text {
+//     font-weight: 500;
+//     text-align: center;
+//     margin: 2.5rem 1rem 0;
+//     font-size: 2rem
+// }
+
 .login_container_form_signup {
     display: flex;
     flex-direction: column;

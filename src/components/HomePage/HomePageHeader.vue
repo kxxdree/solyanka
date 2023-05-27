@@ -1,10 +1,16 @@
 <template lang="">
     <div>
         <header class="hp-header">
-                <img src="../../assets/images/headerLogo.svg" alt="header_img">
+                <router-link to="/">
+                    <img src="../../assets/images/headerLogo.svg" alt="header_img">
+                </router-link>
             <div class="hp-header_btns">
-                <button class="hp-header_btn">Регистрация</button>
-                <button class="hp-header_btn">Авторизация</button>
+                <router-link to="/signup">
+                    <button class="hp-header_btn">Регистрация</button>
+                </router-link>
+                <router-link to="/login">
+                    <button class="hp-header_btn">Авторизация</button>
+                </router-link>
             </div>
         </header>
     </div>
@@ -28,6 +34,7 @@ export default {
         border: none;
         cursor: pointer;
         margin-left: 6rem;
+        margin-right: 1.5rem;
         color: #3C1900;
 
         &:hover {
