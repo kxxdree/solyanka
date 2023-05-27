@@ -4,7 +4,7 @@
         <div class="login_container">
           <LoginTitle>
             <h1 class="login_container_title_text">Солянка Chat рада твоему возращению</h1>
-            <p class="login_container_title_text" style="margin-top: 5px; font-weight: 400">Давно не виделись с тобой, дорогой друг :)</p>
+            <p style="margin-top: 5px; margin-bottom: 0; font-weight: 400; font-size: 2rem">Давно не виделись с тобой, дорогой друг :)</p>
           </LoginTitle>
             <div class="login_container_form">
                <LoginForm />

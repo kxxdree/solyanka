@@ -1,42 +1,57 @@
 <template>
     <div>
         <form class="login_container_form_login" action="#" @submit.prevent="submit">
-            <p class="login_container_title_text"
-                style="font-weight: 500; text-align: center; margin: 2.5rem 1rem 0; font-size: 2rem"
-                v-if="this.$route.name == 'login'">Вход в Солянка Chat</p>
-            <p v-else class="login_container_title_text"
-                style="font-weight: 500; text-align: center; margin: 2.5rem 1rem 0; font-size: 2rem">Регистрация</p>
+            <p class="login_container_title_text" v-if="this.$route.name == 'login'">Вход в Солянка Chat</p>
+            <p v-else class="login_container_title_text">Регистрация</p>
             <label for="email" class="login_container_form_login_label">Адрес эл. почты</label>
-            <input type="text" id="email" class="login_container_form_login_input" required>
+            <input type="email" id="email" class="login_container_form_login_input" required v-model="email">
             <label for="password" class="login_container_form_login_label">Пароль</label>
-            <input type="text" id="password" class="login_container_form_login_input" required>
-            <slot></slot>
+            <input type="password" id="password" class="login_container_form_login_input" required v-model="password">
+            <!-- <slot></slot> -->
+            <div v-if="this.$route.name == 'signup'" style="    display: flex;
+    flex-direction: column;">
+                <label for="repeated_password" class="login_container_form_login_label">Повторите пароль</label>
+                <input type="password" id="repeated_password" class="login_container_form_login_input" required
+                    v-model="password_confirmation">
+            </div>
+            <span v-if="errorMessage" style="color:red; text-align: center;margin-top:1rem ;">
+                {{ errorMessage }}
+            </span>
             <LoginButton v-if="this.$route.name == 'login'" type="submit" />
             <SignupButton v-else type="submit" />
+
         </form>
-        <div class="login_container_form_signup">
-            <p v-if="this.$route.name == 'login'" class="login_container_title_text"
-                style="font-weight: 500; text-align: center; margin: 2.5rem 1rem 0; font-size: 2rem">Нет профиля в Солянка
-                Chat?</p>
-            <p v-else class="login_container_title_text"
-                style="font-weight: 500; text-align: center; margin: 2.5rem 1rem 0; font-size: 2rem">Есть профиль в Солянка
-                Chat?</p>
-            <router-link to="/signup" v-if="this.$route.name == 'login'">
-                <SignupButton />
-            </router-link>
-            <router-link to="/login" v-else>
-                <LoginButton />
-            </router-link>
-        </div>
+
+        <form>
+            <div class="login_container_form_signup">
+                <p v-if="this.$route.name == 'login'" class="login_container_title_text">Нет профиля в Солянка Chat?</p>
+                <p v-else class="login_container_title_text">Есть профиль в Солянка
+                    Chat?</p>
+                <router-link to="/signup" v-if="this.$route.name == 'login'">
+                    <SignupButton />
+                </router-link>
+                <router-link to="/login" v-else>
+                    <LoginButton />
+                </router-link>
+            </div>
+        </form>
     </div>
 </template>
 <script>
+
+
 import LoginButton from '../Buttons/LoginButton.vue';
 import SignupButton from '../Buttons/SignupButton.vue';
+import axios from 'axios'
 
 export default {
+
     data() {
         return {
+            email: '',
+            password: '',
+            password_confirmation: '',
+            errorMessage: "",
         }
     },
     components: {
@@ -44,9 +59,30 @@ export default {
         SignupButton
     },
     methods: {
-        submit() {
+        async submit() {
+            let url = '';
+            let postData = {};
 
-        }
+            if (this.$route.name == 'login') {
+                url = 'http://92.63.105.255/login'
+                postData = { email: this.email, password: this.password }
+            } else {
+                url = 'http://92.63.105.255/register'
+                postData = {
+                    email: this.email,
+                    password: this.password,
+                    password_confirmation: this.password_confirmation
+                }
+            }
+
+            await axios.post(url, postData)
+            .then(response => {
+                this.$router.push("/")
+            })
+            .catch(error => {
+                this.errorMessage = error.response.data.message
+            })
+        },
     }
 }
 </script>
@@ -78,12 +114,12 @@ export default {
     }
 }
 
-// .login_container_title_text {
-//     font-weight: 500;
-//     text-align: center;
-//     margin: 2.5rem 1rem 0;
-//     font-size: 2rem
-// }
+.login_container_title_text {
+    font-weight: 500;
+    text-align: center;
+    margin: 2.5rem 1rem 0;
+    font-size: 2rem
+}
 
 .login_container_form_signup {
     display: flex;
