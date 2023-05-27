@@ -7,13 +7,16 @@
 <script>
 import PageLogin from './components/AuthPages/PageLogin.vue'
 import HomePage from './components/HomePage/HomePage.vue'
+import MainPage from './components/MainPage/MainPage.vue'
+
 
 export default {
   data() {
     return {
       components: {
         PageLogin,
-        HomePage
+        HomePage,
+        MainPage
       }
     }
   }

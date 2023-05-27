@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import PageSignUp from '../components/AuthPages/PageSignUp'
 import PageLogin from '../components/AuthPages/PageLogin'
 import HomePage from '../components/HomePage/HomePage'
+import MainPage from '../components/MainPage/MainPage'
 
 
 Vue.use(VueRouter)
@@ -22,6 +23,11 @@ const routes = [
     path: '/',
     name: 'homepage',
     component: HomePage
+  },
+  {
+    path: '/mainpage',
+    name: 'mainpage',
+    component: MainPage
   }
 ]
 
