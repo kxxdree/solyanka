@@ -16,11 +16,11 @@
                         <footer class="footer">
                             <div class="footer_wrapper">
                                 <ModalRoles v-if="isShown" />
-                            <input type="text" class="footer_wrapper_input" v-on:keypress.enter="addQuestion" v-model="question">
-                            <button class="footer_wrapper_input_btn-one" @click="toShow">
+                            <input type="text" class="footer_wrapper_input" v-on:keypress.enter="addQuestion" v-model="question" >
+                            <button class="footer_wrapper_input_btn-one" @click="toShowRoles">
                                 <img src="../../assets/images/theme-button.svg" alt="Выбрать роль">
                             </button>
-                            <button class="footer_wrapper_input_btn-two">
+                            <button class="footer_wrapper_input_btn-two" @click="addQuestion">
                                 <img src="../../assets/images/send-button.svg" alt="Отправить">
                             </button>
                         </div>
@@ -53,22 +53,22 @@ export default {
             this.questionList.push(this.question)
             this.question = ''
         },
-       async addNewChat() {
-            const url = 'http://92.63.105.255/api/chat/create'
-            let postData = {
-                name: '',
-                icon: '',
-                text: ''
-            }
-            await axios.post(url, postData)
-            .then(response => {
-                
-            })
-            .catch(error => {
-                this.errorMessage = error.response.data.message
-            })
+        addNewChat() {
+            // const url = 'http://92.63.105.255/api/chat/create'
+            // let createData = {
+            //     name: '',
+            //     icon: '',
+            //     text: ''
+            // }
+            // await axios.post(url, createData)
+            // .then(response => {
+
+            // })
+            // .catch(error => {
+            //     this.errorMessage = error.response.data.message
+            // })
         },
-        toShow() {
+        toShowRoles() {
             this.isShown = !this.isShown
         },
     }
@@ -152,7 +152,7 @@ export default {
             width: 55vw;
             font-size: 1.5rem;
             padding-left: 1rem;
-            outline: none;
+            box-shadow: 0px 0px 32px 0 rgba(0,0,0,0.14);
         }
 
         .footer_wrapper_input_btn-one {
