@@ -40,10 +40,18 @@ export default {
         toShowPrompts() {
             this.isShown = !this.isShown
         },
-        takeRole(newRole) {
+        async takeRole(newRole) {
             this.isActive = !this.isActive;
             this.currentRole = newRole;
             console.log(this.currentRole);
+
+            await axios.post("http://92.63.105.255/api/user-role/" + this.currentRole.id + "?user_id=" + this.$store.state.user)
+            .then(response => {
+            })
+            .catch(error => {
+                this.errorMessage = error.response.data.message
+            })
+
         }
     },
     components: {
