@@ -31,7 +31,7 @@
                         <!-- <FooterInput /> -->
                         <footer class="footer">
                             <div class="footer_wrapper">
-                                <ModalRoles v-if="isShown" />
+                                <ModalRoles v-if="isShown" :curChat="curChat"/>
                             <input type="text" class="footer_wrapper_input" v-on:keypress.enter="addQuestion" v-model="question" >
                             <button class="footer_wrapper_input_btn-one" @click="toShowRoles" :class="{onhover : onHover}">
                                 <img src="../../assets/images/theme-button.svg" alt="Выбрать роль">
