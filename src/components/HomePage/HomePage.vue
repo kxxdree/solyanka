@@ -4,8 +4,17 @@
                 <div class="wrapper">
                     <div class="leftside-bar">
                         <button class="leftside-bar_btn" @click="addNewChat">+ Создать чат</button>
-                        <div class="chat-list" v-for="(chatItem, index) in chatList" :key="index">
-                            <div class="chat-list_item">{{chatItem}}</div>
+                        <div class="chat-list" v-for="(chatItem, index) in chatList" :key="chatItem.id">
+                            <div class="chat-list_item">
+                                <img 
+                                    :src="'src/assets/images/chats/' + chatItem.icon" 
+                                    alt="" 
+                                    class="chat-list_item-picture"
+                                />
+                                <div class="chat-list_item-name">
+                                    {{chatItem.name}}
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="rightside-bar">
@@ -36,6 +45,8 @@
 import HomePageHeader from './HomePageHeader.vue';
 import FooterInput from './FooterInput.vue';
 import ModalRoles from './ModalRoles.vue';
+import axios from 'axios'
+
 export default {
     components: {
         HomePageHeader,
@@ -50,11 +61,36 @@ export default {
             questionList: [],
             isShown: false,
             onHover: true,
-            questionAnswer: ''
+            questionAnswer: '',
+            domain: 'http://92.63.105.255/api'
         }
     },
+    async mounted() {
+        await axios.get(
+            this.domain + '/chat?user_id=' + this.$store.state.user
+        )
+            .then(response => {
+                this.chatList = response.data;
+            })
+            .catch(error => {
+                this.errorMessage = error.response.data.message
+            })
+    },
     methods: {
-        addQuestion() {
+        async addQuestion() {
+            let postData = {};
+            let url = '';
+            
+            url = 'http://92.63.105.255/api/request?user_id=' + this.$store.state.user;
+            postData = { name: this.inputValue, text: this.areaContent, icon: this.areaPics };
+            
+            await axios.post(url, postData)
+                .then(response => {
+                    showModal = !showModal
+                })
+                .catch(error => {
+                    this.errorMessage = error.response.data.message
+                })
             this.questionList.push(this.question)
             this.question = ''
         },
