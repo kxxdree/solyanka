@@ -12,6 +12,9 @@
                         <div class="rightside-bar_chat-item" v-for="(questionItem, index) in questionList" :key="index">
                             <p>{{questionItem}}</p>
                         </div>
+                        <div class="rightside-bar_chat-item_answer">
+                            <p>{{questionAnswer}}</p>
+                        </div>
                         <!-- <FooterInput /> -->
                         <footer class="footer">
                             <div class="footer_wrapper">
@@ -20,7 +23,7 @@
                             <button class="footer_wrapper_input_btn-one" @click="toShowRoles" :class="{onhover : onHover}">
                                 <img src="../../assets/images/theme-button.svg" alt="Выбрать роль">
                             </button>
-                            <button class="footer_wrapper_input_btn-two" @click="addQuestion" :class="{onhover : onHover}">
+                            <button class="footer_wrapper_input_btn-two" @click="addQuestion" :class="{onhover : onHover}" v-on:keypress.enter="addQuestion">
                                 <img src="../../assets/images/send-button.svg" alt="Отправить">
                             </button>
                         </div>
@@ -46,7 +49,8 @@ export default {
             question: '',
             questionList: [],
             isShown: false,
-            onHover: true
+            onHover: true,
+            questionAnswer: ''
         }
     },
     methods: {
@@ -119,8 +123,21 @@ export default {
         background-color: #FEF0D3;
         padding: 0.5rem 1rem;
         display: flex;
-        width: 55vw;
+        width: 50vw;
         margin: 2.5rem 10rem;
+        font-size: 1.5rem;
+        color: #3C1900;
+        border-radius: 30px;
+    }
+
+    &_chat-item_answer {
+        width: 6rem;
+        background-color: #F5F5F5;
+        ;
+        padding: 0.5rem 1rem;
+        display: flex;
+        width: 50vw;
+        margin: 2.5rem 10rem 0;
         font-size: 1.5rem;
         color: #3C1900;
         border-radius: 30px;
