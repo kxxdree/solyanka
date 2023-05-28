@@ -5,7 +5,7 @@
                     <div class="leftside-bar">
                         <button class="leftside-bar_btn" @click="addNewChat">+ Создать чат</button>
                         <div class="chat-list" v-for="(chatItem, index) in chatList" :key="chatItem.id">
-                            <div class="chat-list_item">
+                            <div class="chat-list_item" @click="openChat(chatItem.id)">
                                 <img 
                                     :src="'src/assets/images/chats/' + chatItem.icon" 
                                     alt="" 
@@ -57,6 +57,8 @@ export default {
         return {
             chatList: [],
             chatItem: 'Новый чат',
+            curChatId: null,
+            curChat: null,
             question: '',
             questionList: [],
             isShown: false,
@@ -71,6 +73,18 @@ export default {
         )
             .then(response => {
                 this.chatList = response.data;
+                this.curChat = response.data[0];
+            })
+            .catch(error => {
+                this.errorMessage = error.response.data.message
+            })
+        
+        await axios.get(
+            this.domain + '/chat/' + this.curChat.id + '?user_id=' + this.$store.state.user
+        )
+            .then(response => {
+                console.log(response);
+                this.questionList = response.data.history
             })
             .catch(error => {
                 this.errorMessage = error.response.data.message
@@ -93,6 +107,9 @@ export default {
                 })
             this.questionList.push(this.question)
             this.question = ''
+        },
+        openChat() {
+
         },
         addNewChat() {
             // const url = 'http://92.63.105.255/api/chat/create'
