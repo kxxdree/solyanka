@@ -6,10 +6,10 @@
                     <img src="../../assets/images/headerLogo.svg" alt="Solyanka Chat" class="mainpage_header_img">
                 </router-link>
                 <div class="mainpage_header_nav">
-                    <router-link to="/homepage">
-                        <button class="mainpage_header_nav_btn">Главная</button>
+                    <router-link to="/homepage" style="text-decoration: none;">
+                        <a class="mainpage_header_nav_btn">Главная</a>
                     </router-link>
-                    <button class="mainpage_header_nav_btn">О сервисе</button>
+                    <a class="mainpage_header_nav_btn" @click="toAboutUs">О сервисе</a>
                 </div>
                 <div style="align-items: center; display: flex;">
                     <img src="../../assets/images/username.svg" alt="Логотип" style="margin-right: 0.5rem ;">
@@ -34,7 +34,7 @@
             </div>
             <img src="../../assets/images/mainpage-pic.svg" alt="Лого" class="mainpage_wrapper_logo">
         </div>
-        <div class="about">
+        <div class="about" ref="about">
             <h2 class="about_title">О сервисе</h2>
             <p class="about_subtitle"><strong>Солянка Chat</strong> - творческая версия АИ, с помощью которой каждый человек
                 может
@@ -51,7 +51,14 @@
 </template>
 <script>
 export default {
-
+    methods: {
+        toAboutUs() {
+            this.$refs.about.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            })
+        }
+    }
 }
 </script>
 <style lang="scss">
@@ -83,6 +90,7 @@ export default {
             cursor: pointer;
             margin-right: 2rem;
             color: #3C1900;
+            text-decoration: none;
 
             &:hover {
                 color: #FAB225;
