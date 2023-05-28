@@ -44,13 +44,13 @@
                 <strong>желаниями</strong>
             </p>
         </div>
-        <footer class="footer">
-            <p class="footer_text">©️ Team Солянка 2023</p>
+        <footer class="footer_main">
+            <p class="footer_main_text">©️ Team Солянка 2023</p>
         </footer>
     </div>
 </template>
 <script>
-import axios from 'axios'
+
 export default {
     methods: {
         toAboutUs() {
@@ -179,7 +179,7 @@ export default {
     }
 }
 
-.footer {
+.footer_main {
     position: relative;
     bottom: 0;
     text-align: center;
