@@ -37,7 +37,7 @@ export default {
     data() {
         return {
 
-            url: "../../assets/images/roles/",
+            // url: "../../assets/images/roles/",
             roles: [],
 
             isNewRolesShown: false,
@@ -63,6 +63,7 @@ export default {
                 .catch(error => {
                     console.error('ошибка 9');
                 })
+                this.$emit('changeRole', role_id);
         }
     }
 }
