@@ -3,7 +3,10 @@
             <HomePageHeader />
                 <div class="wrapper">
                     <div class="leftside-bar">
-                        <button class="leftside-bar_btn" @click="addNewChat">+ Создать чат</button>
+                        <button 
+                            class="leftside-bar_btn"
+                            @click="visibleChatCreateModal = true"
+                        >+ Создать чат</button>
                         <div class="chat-list" v-for="(chatItem, index) in chatList" :key="chatItem.id">
                             <div class="chat-list_item" @click="openChat(chatItem)">
                                 <img 
@@ -40,6 +43,11 @@
                         </footer>
                     </div>
                 </div>
+
+                <div class="modal-chat-create" v-show="visibleChatCreateModal">
+                    <input type="text" class="text" v-model="newChatName">
+                    <button @click="addNewChat">Создать!</button>
+                </div>
         </div>
     </template>
 <script>
@@ -65,7 +73,9 @@ export default {
             isShown: false,
             onHover: true,
             questionAnswer: '',
-            domain: 'http://92.63.105.255/api'
+            domain: 'http://92.63.105.255/api',
+            newChatName: '',
+            visibleChatCreateModal: false
         }
     },
     async mounted() {
@@ -136,20 +146,20 @@ export default {
                 this.errorMessage = error.response.data.message
             })
         },
-        addNewChat() {
-            // const url = 'http://92.63.105.255/api/chat/create'
-            // let createData = {
-            //     name: '',
-            //     icon: '',
-            //     text: ''
-            // }
-            // await axios.post(url, createData)
-            // .then(response => {
-
-            // })
-            // .catch(error => {
-            //     this.errorMessage = error.response.data.message
-            // })
+        async addNewChat() {
+            await axios.post(
+                this.domain + '/chat/create' + '?user_id=' + this.$store.state.user, 
+            {
+                name: this.newChatName
+            })
+                .then(response => {
+                    this.newChatName = ''
+                    this.visibleChatCreateModal = true;
+                    this.chatList.push(response.data);
+                })
+                .catch(error => {
+                    this.questionList[this.questionList.length - 1].answer =  error.response.data.message
+                })
         },
         toShowRoles() {
             this.isShown = !this.isShown
@@ -196,7 +206,6 @@ export default {
     flex-basis: 70%;
     width: 100vh;
     overflow-y: auto;
-    padding-bottom: 150px;
     box-sizing: border-box;
 
     &_chat-item {
@@ -236,7 +245,7 @@ export default {
 }
 
 .footer {
-    position: absolute;
+    position: sticky;
     bottom: 1rem;
     display: flex;
     flex-direction: column;
@@ -277,6 +286,15 @@ export default {
 
 }
 
+.modal-chat-create {
+    position: absolute;
+    padding: 10px;
+    background: #fff;
+    font-size: 3em;
+    top: 10px;
+    left: 10px;
+    display: grid;
+}
 .onhover {
     :hover {
         opacity: 0.7;
