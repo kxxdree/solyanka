@@ -117,6 +117,9 @@ export default {
 .rightside-bar {
     flex-basis: 70%;
     width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 
     &_chat-item {
         width: 6rem;
@@ -155,7 +158,6 @@ export default {
 }
 
 .footer {
-    position: absolute;
     bottom: 1rem;
     display: flex;
     flex-direction: column;
