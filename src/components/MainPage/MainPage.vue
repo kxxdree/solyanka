@@ -37,7 +37,30 @@
     </div>
 </template>
 <script>
+import axios from 'axios'
 export default {
+    // data() {
+    //     return{
+    //         user: {}
+    //     }
+    // },
+    // async mounted(){
+    //     if (this.$store.state.user) {
+    //     await axios.get("http://92.63.105.255/api/profile/" + this.$store.state.user + "/?user_id="+this.$store.state.user)
+    //     .then(response => {
+    //         this.user = response.data;
+    //         console.log(response);
+    //     })
+    //     .catch(error => {
+    //         this.user.email = "Имя пользователя";
+    //         this.errorMessage = error.response.data.message
+    //     })
+    // }
+    // else {
+    //     this.user.email = "Имя пользователя";
+    //     console.log(this.$store.state.user);
+    // }
+    // }
 
 }
 </script>
