@@ -32,8 +32,8 @@
                         <footer class="footer">
                             <div class="footer_wrapper">
                                 <ModalRoles v-if="isShown" />
-                            <input type="text" class="footer_wrapper_input" v-on:keypress.enter="addQuestion" v-model="question" >
-                            <button class="footer_wrapper_input_btn-one" @click="toShowRoles" :class="{onhover : onHover}">
+                            <input type="text" class="footer_wrapper_input" v-on:keypress.enter="addQuestion" v-model="question">
+                            <button class="footer_wrapper_input_btn-one" @click="toShowRoles" :class="{onhover : onHover}" v-if="this.$store.state.user">
                                 <img src="../../assets/images/theme-button.svg" alt="Выбрать роль">
                             </button>
                             <button class="footer_wrapper_input_btn-two" @click="addQuestion" :class="{onhover : onHover}" v-on:keypress.enter="addQuestion">
