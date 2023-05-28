@@ -1,14 +1,20 @@
-<template lang="">
-    <div class="prompts-wrapper">
-      <form class="prompts-wrapper_form">
-        <label for="role-name" class="prompts-wrapper_form_label">Название роли:</label>
-        <input type="text" id="role-name" class="prompts-wrapper_form_input" v-model="inputValue">
-        <label for="prompts" class="prompts-wrapper_form_label">Промты:</label>
-        <textarea id="prompts" cols="30" rows="5" class="prompts-wrapper_form_textarea" v-model="areaContent"></textarea>
-        <label for="pics" class="prompts-wrapper_form_label">Обозначения:</label>
-        <textarea id="pics" cols="30" rows="5" class="prompts-wrapper_form_textarea"></textarea>
-        <button class="prompts-wrapper_form_save-btn" :class="inputValue !== '' && areaContent !== '' && areaPics !== '' ? 'isshown' : 'inactive'">Сохранить</button>
-      </form>
+<template>
+    <div class="prompts-wrapper" :class="{ isclosed: showModal }">
+        <form class="prompts-wrapper_form">
+            <label for="role-name" class="prompts-wrapper_form_label">Название роли:</label>
+            <input type="text" id="role-name" class="prompts-wrapper_form_input" v-model="inputValue">
+            <label for="prompts" class="prompts-wrapper_form_label">Промты:</label>
+            <textarea id="prompts" cols="30" rows="5" class="prompts-wrapper_form_textarea"
+                v-model="areaContent"></textarea>
+            <label for="pics" class="prompts-wrapper_form_label">Обозначения:</label>
+            <textarea id="pics" cols="30" rows="5" class="prompts-wrapper_form_textarea"></textarea>
+            <button class="prompts-wrapper_form_save-btn"
+                :class="inputValue == '' && areaContent == '' ? 'inactive' : 'isshown'"
+                @click="showModal = !showModal">Сохранить</button>
+            <button class="prompts-wrapper_form_close-btn" @click="showModal = !showModal">
+                <img src="../../assets/images/close form.svg" alt="Закрыть">
+            </button>
+        </form>
     </div>
 </template>
 <script>
@@ -17,7 +23,13 @@ export default {
         return {
             inputValue: '',
             areaContent: '',
-            areaPics: ''
+            areaPics: '',
+            showModal: false
+        }
+    },
+    methods: {
+        toSaveForm() {
+            this.style.display = 'none'
         }
     }
 }
@@ -76,6 +88,21 @@ export default {
             font-weight: 500;
             height: 3rem;
             border-radius: 30px;
+            background-color: #FAB225;
+        }
+
+        &_close-btn {
+            position: absolute;
+            right: 0;
+            margin-right: 1rem;
+            top: 0;
+            background: none;
+            border: none;
+            cursor: pointer;
+
+            &:hover {
+                opacity: 0.7;
+            }
         }
     }
 }
@@ -88,5 +115,9 @@ export default {
 
 .inactive {
     background-color: #D9D9D9;
+}
+
+.isclosed {
+    display: none;
 }
 </style>
