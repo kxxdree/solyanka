@@ -7,7 +7,7 @@
             <textarea id="prompts" cols="30" rows="5" class="prompts-wrapper_form_textarea"
                 v-model="areaContent"></textarea>
             <label for="pics" class="prompts-wrapper_form_label">Обозначения:</label>
-            <textarea id="pics" cols="30" rows="5" class="prompts-wrapper_form_textarea"></textarea>
+            <textarea id="pics" cols="30" rows="5" class="prompts-wrapper_form_textarea" v-model="areaPics"></textarea>
             <button class="prompts-wrapper_form_save-btn"
                 :class="inputValue == '' && areaContent == '' ? 'inactive' : 'isshown'" @click="submit">Сохранить</button>
             <button class="prompts-wrapper_form_close-btn" @click="showModal = !showModal">
