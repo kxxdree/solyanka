@@ -21,7 +21,6 @@ import ModalNewRoles from './ModalNewRoles.vue';
 
 export default {
     async mounted(){
-        console.log(this.$store.state.user);
         await axios.get("http://92.63.105.255/api/user-role?user_id="+this.$store.state.user)
         .then(response => {
             this.roles = response.data;
