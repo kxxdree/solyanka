@@ -47,8 +47,9 @@
                 </div>
 
                 <div class="modal-chat-create" v-show="visibleChatCreateModal">
-                    <input type="text" class="text" v-model="newChatName">
-                    <button @click="addNewChat">Создать!</button>
+                    <label for="text" style="font-size: 1rem; margin-top: 1rem">Название чата</label>
+                    <input type="text" class="modal-chat-create_text" v-model="newChatName" id="text">
+                    <button @click="addNewChat" class="modal-chat-create_btn">Создать!</button>
                 </div>
         </div>
     </template>
@@ -91,7 +92,7 @@ export default {
             .catch(error => {
                 this.errorMessage = error.response.data.message
             })
-        
+
         await axios.get(
             this.domain + '/chat/' + this.curChat.id + '?user_id=' + this.$store.state.user
         )
@@ -106,13 +107,13 @@ export default {
         async addQuestion() {
             let postData = {};
             let url = '';
-            
+
             url = 'http://92.63.105.255/api/request/' + this.curChat.id + '?user_id=' + this.$store.state.user;
-            postData = { 
+            postData = {
                 question: this.question
             };
 
-            if(this.curChat.role_id)
+            if (this.curChat.role_id)
                 postData.role_id = this.curChat.role_id;
 
             this.questionList.push({
@@ -120,7 +121,7 @@ export default {
                 answer: 'отвечаем...'
             })
             this.question = ''
-            
+
             await axios.post(url, postData)
                 .then(response => {
                     this.questionList[this.questionList.length - 1].answer = response.data.answer
@@ -128,13 +129,12 @@ export default {
                     console.log(response);
                 })
                 .catch(error => {
-                    this.questionList[this.questionList.length - 1].answer =  error.response.data.message
+                    this.questionList[this.questionList.length - 1].answer = error.response.data.message
                 })
             // this.questionList.push(this.question)
         },
-        async openChat(chatItem) 
-        {
-            if(this.curChat == chatItem) return;
+        async openChat(chatItem) {
+            if (this.curChat == chatItem) return;
 
             this.curChat = chatItem;
 
@@ -148,20 +148,21 @@ export default {
             .catch(error => {
                 this.errorMessage = error.response.data.message
             })
+
         },
         async addNewChat() {
             await axios.post(
-                this.domain + '/chat/create' + '?user_id=' + this.$store.state.user, 
-            {
-                name: this.newChatName
-            })
+                this.domain + '/chat/create' + '?user_id=' + this.$store.state.user,
+                {
+                    name: this.newChatName
+                })
                 .then(response => {
                     this.newChatName = ''
-                    this.visibleChatCreateModal = true;
+                    this.visibleChatCreateModal = false;
                     this.chatList.push(response.data);
                 })
                 .catch(error => {
-                    this.questionList[this.questionList.length - 1].answer =  error.response.data.message
+                    this.questionList[this.questionList.length - 1].answer = error.response.data.message
                 })
         },
         toShowRoles() {
@@ -248,7 +249,7 @@ export default {
 }
 
 .footer {
-    position: sticky;
+    position: absolute;
     bottom: 1rem;
     display: flex;
     flex-direction: column;
@@ -294,10 +295,33 @@ export default {
     padding: 10px;
     background: #fff;
     font-size: 3em;
-    top: 10px;
-    left: 10px;
+    top: 40%;
+    left: 40%;
     display: grid;
+    width: 30rem;
+    border-radius: 30px;
+    box-shadow: 0px 0px 32px 0 rgba(0, 0, 0, 0.14);
+
+    &_text {
+        font-size: 1.5rem;
+        margin-top: 1rem;
+        padding: 0.5rem;
+        border-radius: 30px;
+        outline: none;
+        height: 2rem;
+    }
+
+    &_btn {
+        background-color: #FAB225;
+        border-radius: 30px;
+        border: none;
+        color: white;
+        font-size: 2rem;
+        margin-top: 2rem;
+        padding: 0.5rem;
+    }
 }
+
 .onhover {
     :hover {
         opacity: 0.7;
