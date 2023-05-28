@@ -30,6 +30,7 @@ export default {
         border-radius: 30px;
         width: 55vw;
         font-size: 1.5rem;
+        box-shadow: 0px 0px 15px 0 rgba(0,0,0,0.10);
     }
 }
 </style>

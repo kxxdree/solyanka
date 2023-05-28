@@ -10,8 +10,8 @@
             <!-- <slot></slot> -->
             <div v-if="this.$route.name == 'signup'" style="    display: flex;
     flex-direction: column;">
-                <label for="repeated_password" class="login_container_form_login_label">Повторите пароль</label>
-                <input type="password" id="repeated_password" class="login_container_form_login_input" required
+                <label for="confirmed_password" class="login_container_form_login_label">Повторите пароль</label>
+                <input type="password" id="confirmed_password" class="login_container_form_login_input" required
                     v-model="password_confirmation">
             </div>
             <span v-if="errorMessage" style="color:red; text-align: center;margin-top:1rem ;">
@@ -74,16 +74,16 @@ export default {
                     password_confirmation: this.password_confirmation
                 }
             }
-
             await axios.post(url, postData)
+
             .then(response => {
                 this.$router.push("/");
                 this.$store.state.user = response.data.user.id;
-                console.log(response);
             })
             .catch(error => {
                 this.errorMessage = error.response.data.message
             })
+
         },
         
     },

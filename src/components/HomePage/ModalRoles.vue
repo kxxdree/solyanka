@@ -3,15 +3,21 @@
         <div v-for="(role, index) in roles" :key="index">
             <img :src="url + role.icon" alt="emodji">
             <p class="modal_wrapper_roles">{{role.name}}</p>
+
         </div>
-        <button class="modal_wrapper_role-btn">
+        <button class="modal_wrapper_role-btn" @click="toShowNewRoles" :class="{onhover : onHover}">
             <img src="../../assets/images/new role btn.svg" alt="Добавить роль">
         </button>
+        <ModalNewRoles v-if="isNewRolesShown"/>
     </div>
 </template>
 <script>
 
+
 import axios from 'axios'
+
+import ModalNewRoles from './ModalNewRoles.vue';
+
 
 export default {
     async mounted(){
@@ -26,10 +32,23 @@ export default {
     },
     data() {
         return {
+
             url: "http://92.63.105.255",
-            roles: []
+            roles: [],
+
+            isNewRolesShown: false,
+            onHover: true
+
         }
     },
+    components: {
+        ModalNewRoles
+    },
+    methods: {
+        toShowNewRoles() {
+            this.isNewRolesShown = !this.isNewRolesShown
+        }
+    }
 }
 </script>
 <style lang="scss">
@@ -42,19 +61,29 @@ export default {
     font-size: 1rem;
     position: absolute;
     bottom: 8.25rem;
-    border: 1px solid black;
+    box-shadow: 0px 0px 15px 0 rgba(0, 0, 0, 0.10);
     padding: 2.5rem 2rem;
     font-size: 1rem;
     width: 53vw;
     text-align: center;
     align-items: center;
+    background-color: white;
 
     &_roles {
-        margin: 0.5rem 2.25rem;
+        margin: 0.5rem 1.5rem;
+
+        &:hover {
+            opacity: 0.7;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
     }
 
     &_role-btn {
         background: none;
+        cursor: pointer;
+        border: none;
     }
 }
 </style>
