@@ -11,7 +11,10 @@
                     </router-link>
                     <button class="mainpage_header_nav_btn">О сервисе</button>
                 </div>
-                <button class="mainpage_header_username">Имя пользователя</button>
+                <div style="align-items: center; display: flex;">
+                    <img src="../../assets/images/username.svg" alt="Логотип" style="margin-right: 0.5rem ;">
+                    <button class="mainpage_header_username">Имя пользователя</button>
+                </div>
             </div>
         </header>
     </div>
