@@ -2,7 +2,7 @@
     <div class="mainpage">
         <header>
             <div class="mainpage_header">
-                <router-link to="/homepage">
+                <router-link to="/">
                     <img src="../../assets/images/headerLogo.svg" alt="Solyanka Chat" class="mainpage_header_img">
                 </router-link>
                 <div class="mainpage_header_nav">
@@ -17,6 +17,23 @@
                 </div>
             </div>
         </header>
+        <div class="mainpage_wrapper">
+            <div class="mainpage_wrapper_heading">
+                <h1 class="mainpage_wrapper_heading_title">Солянка Chat самая дружелюбная АИ</h1>
+                <p class="mainpage_wrapper_heading_subtitle">Она всегда рада новым знакомствам Зарегистрируйтесь сейчас и
+                    получите
+                    безграничную влась над Солянкой</p>
+                <div class="mainpage_wrapper_heading_btns">
+                    <router-link to="/login">
+                        <button class="mainpage_wrapper_heading_btns_btn" style="margin-right: 7rem;">Войти</button>
+                    </router-link>
+                    <router-link to="/signup">
+                        <button class="mainpage_wrapper_heading_btns_btn">Зарегистрироваться</button>
+                    </router-link>
+                </div>
+            </div>
+            <img src="../../assets/images/mainpage-pic.svg" alt="Лого" class="mainpage_wrapper_logo">
+        </div>
     </div>
 </template>
 <script>
@@ -66,5 +83,51 @@ export default {
             opacity: 0.7;
         }
     }
+}
+
+.mainpage_wrapper_heading {
+    margin-left: 16rem;
+    margin-top: 8rem;
+    width: 66rem;
+    display: flex;
+    flex-direction: column;
+
+
+    &_title {
+        font-size: 3rem;
+        font-weight: 500;
+        margin-bottom: 0;
+    }
+
+    &_subtitle {
+        font-size: 2.5rem;
+        margin-top: 0.5rem;
+    }
+
+    &_btns {
+        display: flex;
+        align-items: center;
+
+        &_btn {
+            font-size: 2.5rem;
+            border-radius: 30px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            background-color: #D9D9D9;
+            padding: 0.5rem 2rem;
+            color: white;
+
+            &:hover {
+                background-color: #FAB225;
+            }
+        }
+    }
+}
+
+.mainpage_wrapper_logo {
+    position: absolute;
+    bottom: 0;
+    right: 0;
 }
 </style>
