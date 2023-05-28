@@ -32,7 +32,7 @@
                         <footer class="footer">
                             <div class="footer_wrapper">
 
-                                <ModalRoles v-if="isShown" :curChat="curChat"/>
+                                <ModalRoles v-if="isShown" :curChat="curChat" :changeRole="openChat(curChat)"/>
                             <input type="text" class="footer_wrapper_input" v-on:keypress.enter="addQuestion" v-model="question" >
                             <button class="footer_wrapper_input_btn-one" @click="toShowRoles" :class="{onhover : onHover}" v-if="this.$store.state.user">
 
@@ -142,6 +142,7 @@ export default {
                 this.domain + '/chat/' + this.curChat.id + '?user_id=' + this.$store.state.user
             )
             .then(response => {
+                this.curChat = response.data.chat
                 this.questionList = response.data.history
             })
             .catch(error => {

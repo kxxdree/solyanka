@@ -63,6 +63,7 @@ export default {
                 .catch(error => {
                     console.error('ошибка 9');
                 })
+                this.$emit('changeRole', role_id);
         }
     }
 }
