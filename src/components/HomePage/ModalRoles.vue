@@ -37,7 +37,7 @@ export default {
     data() {
         return {
 
-            url: "../../assets/images/roles/",
+            // url: "../../assets/images/roles/",
             roles: [],
 
             isNewRolesShown: false,
@@ -54,7 +54,7 @@ export default {
         },
         async changeRole(role) {
             await axios.post(
-                this.url + '/api/chat/'+ this.curChat.id +'/change-role' + '?user_id=' + this.$store.state.user
+                "http://92.63.105.255" + '/api/chat/'+ this.curChat.id +'/change-role' + '?user_id=' + this.$store.state.user
             , {
                 role_id: role.id
             })
