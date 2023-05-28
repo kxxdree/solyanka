@@ -20,12 +20,12 @@ const routes = [
     component: PageSignUp
   },
   {
-    path: '/',
+    path: '/homepage',
     name: 'homepage',
     component: HomePage
   },
   {
-    path: '/mainpage',
+    path: '/',
     name: 'mainpage',
     component: MainPage
   }

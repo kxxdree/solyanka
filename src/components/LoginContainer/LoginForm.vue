@@ -76,7 +76,7 @@ export default {
             }
             await axios.post(url, postData)
                 .then(response => {
-                    this.$router.push("/")
+                    this.$router.push("/homepage")
                 })
                 .catch(error => {
                     this.errorMessage = error.response.data.message

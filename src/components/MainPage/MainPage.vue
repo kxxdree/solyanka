@@ -3,14 +3,11 @@
         <header>
             <div class="mainpage_header">
                 <img src="../../assets/images/headerLogo.svg" alt="Solyanka Chat" class="mainpage_header_img">
-                <nav class="mainpage_header_nav">
-                    <li class="mainpage_header_nav_item">
-                        <router-link to="/">Главная</router-link>
-                    </li>
-                    <li>
-                        <router-link to="">О сервисе</router-link>
-                    </li>
-                </nav>
+                <div class="mainpage_header_nav">
+                    <button class="mainpage_header_nav_btn">Главная</button>
+                    <button class="mainpage_header_nav_btn">О сервисе</button>
+                </div>
+                <button class="mainpage_header_username">Имя пользователя</button>
             </div>
         </header>
     </div>
@@ -34,6 +31,23 @@ export default {
         margin-left: 12rem;
         display: flex;
         align-items: center;
+        width: 500px;
+
+        &_btn {
+            font-size: 2rem;
+            font-weight: 500;
+            background: none;
+            border: none;
+            cursor: pointer;
+            margin-right: 2rem;
+            color: #3C1900;
+
+            &:hover {
+                color: #FAB225;
+            }
+        }
     }
+
+    &_username {}
 }
 </style>
