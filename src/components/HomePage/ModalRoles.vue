@@ -1,8 +1,9 @@
 <template lang="">
     <div class="modal_wrapper">
         <div v-for="(role, index) in roles" :key="index">
-            <!-- <img :src="role.path" alt="emodji"> -->
-            <p class="modal_wrapper_roles">{{role.roleName}}</p>
+            <img :src="url + role.icon" alt="emodji">
+            <p class="modal_wrapper_roles">{{role.name}}</p>
+
         </div>
         <button class="modal_wrapper_role-btn" @click="toShowNewRoles" :class="{onhover : onHover}">
             <img src="../../assets/images/new role btn.svg" alt="Добавить роль">
@@ -12,50 +13,32 @@
 </template>
 <script>
 
+
+import axios from 'axios'
+
 import ModalNewRoles from './ModalNewRoles.vue';
 
+
 export default {
+    async mounted(){
+        console.log(this.$store.state.user);
+        await axios.get("http://92.63.105.255/api/user-role?user_id="+this.$store.state.user)
+        .then(response => {
+            this.roles = response.data;
+        })
+        .catch(error => {
+            this.errorMessage = error.response.data.message
+        })
+    },
     data() {
         return {
-            roles: [
-                {
-                    roleName: 'linux terminal',
-                    id: 1,
-                    // path: require("../../assets/images/emodji/laptop.svg")
-                },
-                {
-                    roleName: 'Путин',
-                    id: 2,
-                    path: ""
-                },
-                {
-                    roleName: 'Солянка',
-                    id: 3,
-                    path: ""
-                },
-                {
-                    roleName: 'Программист',
-                    id: 4,
-                    path: ""
-                },
-                {
-                    roleName: 'Магия',
-                    id: 5,
-                    path: ""
-                },
-                {
-                    roleName: 'Шериф',
-                    id: 6,
-                    path: ""
-                },
-                {
-                    roleName: 'Ангел',
-                    id: 7,
-                    path: ""
-                },
-            ],
+
+            url: "http://92.63.105.255",
+            roles: [],
+
             isNewRolesShown: false,
             onHover: true
+
         }
     },
     components: {
