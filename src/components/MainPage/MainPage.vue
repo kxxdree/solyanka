@@ -50,6 +50,7 @@
     </div>
 </template>
 <script>
+import axios from 'axios'
 export default {
     methods: {
         toAboutUs() {
@@ -59,6 +60,7 @@ export default {
             })
         }
     }
+
 }
 </script>
 <style lang="scss">

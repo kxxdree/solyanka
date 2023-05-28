@@ -1,7 +1,7 @@
 <template lang="">
     <div class="modal_wrapper">
         <div v-for="(role, index) in roles" :key="index">
-            <img :src="url + role.icon" alt="emodji">
+            <!-- <img :src="require(`../../assets/images/roles/${role.icon}`)" alt="emodji"> -->
             <p class="modal_wrapper_roles">{{role.name}}</p>
 
         </div>
@@ -32,7 +32,7 @@ export default {
     data() {
         return {
 
-            url: "http://92.63.105.255",
+            url: "../../assets/images/roles/",
             roles: [],
 
             isNewRolesShown: false,
