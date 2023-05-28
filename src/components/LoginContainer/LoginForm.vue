@@ -75,14 +75,19 @@ export default {
                 }
             }
             await axios.post(url, postData)
-                .then(response => {
-                    this.$router.push("/")
-                })
-                .catch(error => {
-                    this.errorMessage = error.response.data.message
-                })
+
+            .then(response => {
+                this.$router.push("/");
+                this.$store.state.user = response.data.user.id;
+            })
+            .catch(error => {
+                this.errorMessage = error.response.data.message
+            })
+
         },
-    }
+        
+    },
+
 }
 </script>
 <style lang="scss">
