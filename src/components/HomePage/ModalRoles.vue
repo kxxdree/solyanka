@@ -1,10 +1,10 @@
 <template lang="">
     <div class="modal_wrapper">
         <div v-for="(role, index) in roles" :key="index">
-            <img :src="role.path" alt="emodji">
+            <!-- <img :src="role.path" alt="emodji"> -->
             <p class="modal_wrapper_roles">{{role.roleName}}</p>
         </div>
-        <button class="modal_wrapper_role-btn" @click="toShowNewRoles">
+        <button class="modal_wrapper_role-btn" @click="toShowNewRoles" :class="{onhover : onHover}">
             <img src="../../assets/images/new role btn.svg" alt="Добавить роль">
         </button>
         <ModalNewRoles v-if="isNewRolesShown"/>
@@ -21,7 +21,7 @@ export default {
                 {
                     roleName: 'linux terminal',
                     id: 1,
-                    path: require("../../assets/images/emodji/laptop.svg")
+                    // path: require("../../assets/images/emodji/laptop.svg")
                 },
                 {
                     roleName: 'Путин',
@@ -54,7 +54,8 @@ export default {
                     path: ""
                 },
             ],
-            isNewRolesShown: false
+            isNewRolesShown: false,
+            onHover: true
         }
     },
     components: {
@@ -87,6 +88,13 @@ export default {
 
     &_roles {
         margin: 0.5rem 1.5rem;
+
+        &:hover {
+            opacity: 0.7;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
     }
 
     &_role-btn {

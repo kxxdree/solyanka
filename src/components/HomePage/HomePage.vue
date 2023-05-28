@@ -17,10 +17,10 @@
                             <div class="footer_wrapper">
                                 <ModalRoles v-if="isShown" />
                             <input type="text" class="footer_wrapper_input" v-on:keypress.enter="addQuestion" v-model="question" >
-                            <button class="footer_wrapper_input_btn-one" @click="toShowRoles">
+                            <button class="footer_wrapper_input_btn-one" @click="toShowRoles" :class="{onhover : onHover}">
                                 <img src="../../assets/images/theme-button.svg" alt="Выбрать роль">
                             </button>
-                            <button class="footer_wrapper_input_btn-two" @click="addQuestion">
+                            <button class="footer_wrapper_input_btn-two" @click="addQuestion" :class="{onhover : onHover}">
                                 <img src="../../assets/images/send-button.svg" alt="Отправить">
                             </button>
                         </div>
@@ -45,7 +45,8 @@ export default {
             chatItem: 'Новый чат',
             question: '',
             questionList: [],
-            isShown: false
+            isShown: false,
+            onHover: true
         }
     },
     methods: {
@@ -91,7 +92,7 @@ export default {
     flex-direction: column;
     flex-basis: 30%;
     background-color: white;
-    border-right-style: solid;
+    border-right: 1px solid #BFBFBF;
 
     &_btn {
         background-color: #FAB225;
@@ -152,7 +153,9 @@ export default {
             width: 55vw;
             font-size: 1.5rem;
             padding-left: 1rem;
-            box-shadow: 0px 0px 32px 0 rgba(0,0,0,0.14);
+            box-shadow: 0px 0px 32px 0 rgba(0, 0, 0, 0.14);
+            border: 1px solid #BFBFBF;
+            outline: none;
         }
 
         .footer_wrapper_input_btn-one {
@@ -174,6 +177,11 @@ export default {
         }
     }
 
+}
 
+.onhover {
+    :hover {
+        opacity: 0.7;
+    }
 }
 </style>

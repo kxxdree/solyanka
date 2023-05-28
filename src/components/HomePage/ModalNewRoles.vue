@@ -1,13 +1,13 @@
 <template lang="">
-        <div class="modal_new-roles">
+        <div class="modal_new-roles" :class="{active: isActive}">
             <header class="modal_new-roles_add">
                 <p class="modal_new-roles_add_title">Добавить роли</p>
-                <button class="modal_new-roles_add_btn" @click="toShowPrompts">
+                <button class="modal_new-roles_add_btn" @click="toShowPrompts" :class="{onhover : onHover}">
                     <img src="../../assets/images/new role btn.svg" alt="Добавить роли" style="width: 2rem; height: 2rem; margin-left: 0.5rem">
                 </button>
             </header>
                 <p v-for="newRole in newRoles" :key="newRole.id" class="modal_new-roles_names">{{newRole.newRoleName}}</p>
-                <button class="modal_new-roles_close-btn">
+                <button class="modal_new-roles_close-btn" @click="isActive = !isActive" :class="{onhover : onHover}">
                     <img src="../../assets/images/close form.svg" alt="Закрыть">
                 </button>
                 <ModalPrompts v-if="isShown"/>
@@ -77,7 +77,9 @@ export default {
                 },
 
             ],
-            isShown: false
+            isShown: false,
+            isActive: false,
+            onHover: true
         }
     },
     methods: {
@@ -101,7 +103,7 @@ export default {
     flex-wrap: wrap;
     background-color: white;
     border-radius: 30px;
-    box-shadow: 0px 0px 15px 0 rgba(0,0,0,0.10);
+    box-shadow: 0px 0px 15px 0 rgba(0, 0, 0, 0.10);
 
     &_add {
         display: flex;
@@ -119,6 +121,7 @@ export default {
             cursor: pointer;
             background: none;
             border: none;
+
         }
     }
 
@@ -126,6 +129,12 @@ export default {
         margin: 1rem 1.875rem;
         font-size: 1.1rem;
         color: #3C1900;
+
+        &:hover {
+            opacity: 0.7;
+            text-decoration: underline;
+            cursor: pointer;
+        }
     }
 
     &_close-btn {
@@ -135,6 +144,17 @@ export default {
         border: none;
         top: 0.5rem;
         cursor: pointer;
+
+    }
+}
+
+.active {
+    display: none;
+}
+
+.onhover {
+    :hover {
+        opacity: 0.7;
     }
 }
 </style>

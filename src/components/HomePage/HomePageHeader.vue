@@ -25,7 +25,8 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom-style: groove;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+    box-shadow: 0px 10px 15px 0 rgba(0,0,0,0.10);
 
     &_btn {
         font-size: 2rem;

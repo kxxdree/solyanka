@@ -7,7 +7,7 @@
         <textarea id="prompts" cols="30" rows="5" class="prompts-wrapper_form_textarea" v-model="areaContent"></textarea>
         <label for="pics" class="prompts-wrapper_form_label">Обозначения:</label>
         <textarea id="pics" cols="30" rows="5" class="prompts-wrapper_form_textarea"></textarea>
-        <button class="prompts-wrapper_form_save-btn" :class="inputValue != '' && areaContent != '' ? 'active' : 'inactive'">Сохранить</button>
+        <button class="prompts-wrapper_form_save-btn" :class="inputValue != '' && areaContent != '' && areaPics != '' ? 'isshown' : 'inactive'">Сохранить</button>
       </form>
     </div>
 </template>
@@ -16,7 +16,8 @@ export default {
     data() {
         return {
             inputValue: '',
-            areaContent: ''
+            areaContent: '',
+            areaPics: ''
         }
     }
 }
@@ -27,7 +28,7 @@ export default {
     width: 36rem;
     height: 35rem;
     border-radius: 30px;
-    box-shadow: 0px 0px 15px 0 rgba(0,0,0,0.10);
+    box-shadow: 0px 0px 15px 0 rgba(0, 0, 0, 0.10);
     position: absolute;
     bottom: 0;
     right: 31.5rem;
@@ -64,6 +65,7 @@ export default {
             outline: none;
             padding-left: 1rem;
             padding-top: 1rem;
+            font-size: 1rem;
         }
 
         &_save-btn {
@@ -78,9 +80,10 @@ export default {
     }
 }
 
-.active {
+.isshown {
     background-color: #FAB225;
     cursor: pointer;
+    opacity: 0.7;
 }
 
 .inactive {
