@@ -1,10 +1,14 @@
 <template lang="">
     <div class="modal_wrapper">
-        <div v-for="(role, index) in roles" :key="index">
-            <!-- <img :src="require(`../../assets/images/roles/${role.icon}`)" alt="emodji"> -->
+        <div 
+            @click="changeRole(role)"
+            v-for="(role, index) in roles" 
+            :key="index"
+        >
+            <img :src="url + role.icon" alt="emodji">
             <p class="modal_wrapper_roles">{{role.name}}</p>
-
         </div>
+
         <button class="modal_wrapper_role-btn" @click="toShowNewRoles" :class="{onhover : onHover}">
             <img src="../../assets/images/new role btn.svg" alt="Добавить роль">
         </button>
@@ -29,6 +33,7 @@ export default {
             this.errorMessage = error.response.data.message
         })
     },
+    props: ['curChat'],
     data() {
         return {
 
@@ -46,6 +51,18 @@ export default {
     methods: {
         toShowNewRoles() {
             this.isNewRolesShown = !this.isNewRolesShown
+        },
+        async changeRole(role) {
+            await axios.post(
+                this.url + '/api/chat/'+ this.curChat.id +'/change-role' + '?user_id=' + this.$store.state.user
+            , {
+                role_id: role.id
+            })
+                .then(response => {
+                })
+                .catch(error => {
+                    console.error('ошибка 9');
+                })
         }
     }
 }
