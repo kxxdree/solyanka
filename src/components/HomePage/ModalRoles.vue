@@ -37,7 +37,7 @@ export default {
     data() {
         return {
 
-            url: "http://92.63.105.255",
+            url: "../../assets/images/roles/",
             roles: [],
 
             isNewRolesShown: false,
