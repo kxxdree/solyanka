@@ -4,16 +4,26 @@
                 <div class="wrapper">
                     <div class="leftside-bar">
                         <button class="leftside-bar_btn" @click="addNewChat">+ Создать чат</button>
-                        <div class="chat-list" v-for="(chatItem, index) in chatList" :key="index">
-                            <div class="chat-list_item">{{chatItem}}</div>
+                        <div class="chat-list" v-for="(chatItem, index) in chatList" :key="chatItem.id">
+                            <div class="chat-list_item" @click="openChat(chatItem)">
+                                <img 
+                                    :src="'src/assets/images/chats/' + chatItem.icon" 
+                                    alt="" 
+                                    class="chat-list_item-picture"
+                                />
+                                <div class="chat-list_item-name">
+                                    {{chatItem.name}}
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="rightside-bar">
-                        <div class="rightside-bar_chat-item" v-for="(questionItem, index) in questionList" :key="index">
-                            <p>{{questionItem}}</p>
-                        </div>
-                        <div class="rightside-bar_chat-item_answer">
-                            <p>{{questionAnswer}}</p>
+                        <div class="rightside-bar_chat-history-block" v-for="(questionItem, index) in questionList" :key="index">
+                            <p class="rightside-bar_chat-item">{{questionItem.question}}</p>
+                            
+                            <div class="rightside-bar_chat-item_answer">
+                                <p>{{questionItem.answer}}</p>
+                            </div>
                         </div>
                         <!-- <FooterInput /> -->
                         <footer class="footer">
@@ -36,6 +46,8 @@
 import HomePageHeader from './HomePageHeader.vue';
 import FooterInput from './FooterInput.vue';
 import ModalRoles from './ModalRoles.vue';
+import axios from 'axios'
+
 export default {
     components: {
         HomePageHeader,
@@ -46,17 +58,83 @@ export default {
         return {
             chatList: [],
             chatItem: 'Новый чат',
+            curChatId: null,
+            curChat: null,
             question: '',
             questionList: [],
             isShown: false,
             onHover: true,
-            questionAnswer: ''
+            questionAnswer: '',
+            domain: 'http://92.63.105.255/api'
         }
     },
+    async mounted() {
+        await axios.get(
+            this.domain + '/chat?user_id=' + this.$store.state.user
+        )
+            .then(response => {
+                this.chatList = response.data;
+                this.curChat = response.data[0];
+            })
+            .catch(error => {
+                this.errorMessage = error.response.data.message
+            })
+        
+        await axios.get(
+            this.domain + '/chat/' + this.curChat.id + '?user_id=' + this.$store.state.user
+        )
+            .then(response => {
+                this.questionList = response.data.history
+            })
+            .catch(error => {
+                this.errorMessage = error.response.data.message
+            })
+    },
     methods: {
-        addQuestion() {
-            this.questionList.push(this.question)
+        async addQuestion() {
+            let postData = {};
+            let url = '';
+            
+            url = 'http://92.63.105.255/api/request/' + this.curChat.id + '?user_id=' + this.$store.state.user;
+            postData = { 
+                question: this.question
+            };
+
+            if(this.curChat.role_id)
+                postData.role_id = this.curChat.role_id;
+
+            this.questionList.push({
+                question: this.question,
+                answer: 'отвечаем...'
+            })
             this.question = ''
+            
+            await axios.post(url, postData)
+                .then(response => {
+                    this.questionList[this.questionList.length - 1].answer = response.data.answer
+
+                    console.log(response);
+                })
+                .catch(error => {
+                    this.questionList[this.questionList.length - 1].answer =  error.response.data.message
+                })
+            // this.questionList.push(this.question)
+        },
+        async openChat(chatItem) 
+        {
+            if(this.curChat == chatItem) return;
+
+            this.curChat = chatItem;
+
+            await axios.get(
+                this.domain + '/chat/' + this.curChat.id + '?user_id=' + this.$store.state.user
+            )
+            .then(response => {
+                this.questionList = response.data.history
+            })
+            .catch(error => {
+                this.errorMessage = error.response.data.message
+            })
         },
         addNewChat() {
             // const url = 'http://92.63.105.255/api/chat/create'
@@ -116,7 +194,10 @@ export default {
 
 .rightside-bar {
     flex-basis: 70%;
-    width: 100%;
+    width: 100vh;
+    overflow-y: auto;
+    padding-bottom: 150px;
+    box-sizing: border-box;
 
     &_chat-item {
         width: 6rem;
