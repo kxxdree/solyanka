@@ -7,17 +7,36 @@
         <textarea id="prompts" cols="30" rows="5" class="prompts-wrapper_form_textarea" v-model="areaContent"></textarea>
         <label for="pics" class="prompts-wrapper_form_label">Обозначения:</label>
         <textarea id="pics" cols="30" rows="5" class="prompts-wrapper_form_textarea"></textarea>
-        <button class="prompts-wrapper_form_save-btn" :class="inputValue !== '' && areaContent !== '' && areaPics !== '' ? 'isshown' : 'inactive'">Сохранить</button>
+        <button class="prompts-wrapper_form_save-btn" :class="inputValue !== '' && areaContent !== '' && areaPics !== '' ? 'isshown' : 'inactive'" @click="submit">Сохранить</button>
       </form>
     </div>
 </template>
 <script>
+import axios from 'axios'
 export default {
     data() {
         return {
             inputValue: '',
             areaContent: '',
             areaPics: ''
+        }
+    },
+    methods:{
+        async submit(){
+            let postData = {};
+            let url = '';
+            
+            url = 'http://92.63.105.255/api/role/create?user_id=' + this.$store.state.user;
+            postData = { name: this.inputValue, text: this.areaContent, icon: this.areaPics };
+            
+            await axios.post(url, postData)
+                .then(response => {
+                    console.log(response);
+                })
+                .catch(error => {
+                    this.errorMessage = error.response.data.message
+                })
+
         }
     }
 }

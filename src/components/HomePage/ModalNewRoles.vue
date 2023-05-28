@@ -6,7 +6,7 @@
                     <img src="../../assets/images/new role btn.svg" alt="Добавить роли" style="width: 2rem; height: 2rem; margin-left: 0.5rem">
                 </button>
             </header>
-                <p v-for="newRole in newRoles" :key="newRole.id" class="modal_new-roles_names">{{newRole.newRoleName}}</p>
+                <p v-for="newRole in newRoles" :key="newRole.id" class="modal_new-roles_names" @click="takeRole(newRole)">{{newRole.name}}</p>
                 <button class="modal_new-roles_close-btn" @click="isActive = !isActive" :class="{onhover : onHover}">
                     <img src="../../assets/images/close form.svg" alt="Закрыть">
                 </button>
@@ -14,69 +14,23 @@
         </div>
 </template>
 <script>
+import axios from 'axios'
 import ModalPrompts from './ModalPrompts.vue'
 export default {
+    async mounted(){
+        await axios.get("http://92.63.105.255/api/role")
+        .then(response => {
+            console.log(response.data);
+            this.newRoles = response.data;
+        })
+        .catch(error => {
+            this.errorMessage = error.response.data.message
+        })
+    },
     data() {
         return {
-            newRoles: [
-                {
-                    newRoleName: 'Медицина',
-                    id: 1
-                },
-                {
-                    newRoleName: 'Ангел',
-                    id: 2
-                },
-                {
-                    newRoleName: '18+',
-                    id: 3
-                },
-                {
-                    newRoleName: 'Ребенок',
-                    id: 4
-                },
-                {
-                    newRoleName: 'Религия',
-                    id: 5
-                },
-                {
-                    newRoleName: 'Насилие',
-                    id: 6
-                },
-                {
-                    newRoleName: 'Полиция',
-                    id: 7
-                },
-                {
-                    newRoleName: 'Политика',
-                    id: 8
-                },
-                {
-                    newRoleName: 'Школа',
-                    id: 9
-                },
-                {
-                    newRoleName: 'Бизнесмен',
-                    id: 10
-                },
-                {
-                    newRoleName: 'Дьявол',
-                    id: 11
-                },
-                {
-                    newRoleName: 'Ковбой',
-                    id: 12
-                },
-                {
-                    newRoleName: 'Экоактивист',
-                    id: 13
-                },
-                {
-                    newRoleName: 'Терроризм',
-                    id: 14
-                },
-
-            ],
+            newRoles: [],
+            currentRole: {},
             isShown: false,
             isActive: false,
             onHover: true
@@ -85,6 +39,11 @@ export default {
     methods: {
         toShowPrompts() {
             this.isShown = !this.isShown
+        },
+        takeRole(newRole) {
+            this.isActive = !this.isActive;
+            this.currentRole = newRole;
+            console.log(this.currentRole);
         }
     },
     components: {
